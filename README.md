@@ -178,13 +178,15 @@ We're going to deploy a version of `PetClinic` with `XL-Release`.
 1. Click on `Test` to verify the connection to `XL-Deploy`. You should get the `XL Deploy Server is available.` message. 
 1. Click on `Save`
 1. Now that we have a `XL-Deploy` server that can deploy `PetClinic`, we can create the first release: In the top menu click on `Releases`, then in the new screen `New release`
+![alt text](./Images/XLR_TopMenu.png)
 1. Enter a name for the release and click on `Create`
 1. Now we can add our deployment task in the release. Click on `Add task`.
 1. Give the task a new and from the dropdown menu select: `XL-Deploy` > `Deploy` and click on `Add`
 1. Click on the task to open it. Fill in the following:
     * Server: `XLDServer`
     * Package: `Applications/PetClinic-war/2.0`
-    * Environment: `Environments/Production` (there's an auto-complete function when you start typing)
+    * Environment: `Environments/Production` (there's an auto-complete function when you start typing)  
+    ![alt text](./Images/XLD_AddDeployTask.png)
 1. Click outside of the task to close it, it saves your input automatically. 
 1. Now that we have defined the release let's start it: Click on `Start Release` > `Start`
 1. The tasks should say `In Progress` and after the release is complete, check [PetClinic](http://localhost:8080/petclinic/) to verify version 2.0 is deployed:  
@@ -193,7 +195,8 @@ We're going to deploy a version of `PetClinic` with `XL-Release`.
 ##### Using Templates
 Adding a task for each release is doable, but usually a release pipeline has way more tasks than one. To save time, `XL-Release` has templates you can create to start your releases from. That way you have a single point where you add, update or remove tasks you need for a release.
 
-1. Go to `Design` > `Templates` > `New template`
+1. Go to `Design` > `Templates` > `New template`  
+![alt text](./Images/XLR_Templates.png)
 1. Enter `PetClinic Release Pipeline` for `Template name` and click on `Create`
 1. Add the `XL-Deploy` task like previously and fill in the following:
     * Name: `Deploy PetClinic to Production`
@@ -204,7 +207,7 @@ Adding a task for each release is doable, but usually a release pipeline has way
 1. Hey, where's the version of `PetClinic`? Well, you don't want to start each release with the same version, do you? ;) Let's make the version variable, so each release can have a different version: On the top-left you'll see a dropdown menu called `Show`. In that menu select `Variables`.
 1. Click on `New variable` and name it `PetClinicVersion` 
 1. In the dropdown select `Release flow` to go back. 
-1. Open task `Deploy PetClinic to Production` and add the new variable in the Package, like so: `Applications/PetClinic-war/${PetClinicVersion}`
+1. Open task `Deploy PetClinic to Production` and add the new variable in the Package field, like so: `Applications/PetClinic-war/${PetClinicVersion}`
 1. Now let's see if this works. Click on `New release`, give the release a name and enter `1.0` for the `PetClinicVersion`. Click on `Create`, then `Start release` > `Start`
 1. Wait for the release to finish and go to [PetClinic](http://localhost:8080/petclinic/) to verify version 1.0 is running (refresh if necessary):  
 ![alt text](./Images/Tomcat_PetClinicV1.png)

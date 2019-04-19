@@ -6,7 +6,7 @@ This hands-on will go through the basics of `XL-Deploy` and `XL-Release`. `XL-De
 
 * [Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Internet Browser, like Chrome, Firefox or Edge
-* ***Optional***: You can use a SSH terminal like [putty](https://www.putty.org/) to login to the VM(allows scaling of the command window and easy use of copy-paste)
+* ***Optional***: If you want to check the VM, you can use a SSH terminal like [putty](https://www.putty.org/) to login to the VM(allows scaling of the command window and easy use of copy-paste)
 
 ## 2. Architecture
 
@@ -36,22 +36,14 @@ Follow [these](https://www.maketecheasier.com/import-export-ova-files-in-virtual
 
 \*The "Docker Ip" is used to connect the containers and Tomcat over the network.
 
-## 4. Start VM and its applications
-1. Start the VM with VirtualBox
-1. Login to the VM using VirtualBox or a SSH Terminal (Check the **[Credentials](#credentials)** paragraph above for username and password)
-1. Execute the following command to get the `CONTAINER ID`s to start `XL-Deploy` and `XL-Release` in the next step:  
-`docker ps -a`  
-![alt text](./Images/StartContainers.png)
-1. Start both containers using the following command:  
-`docker start <containerId>`
-1. The applications should become available in a minute or two.
-
-## 5. Let's do it!
+## 4. Let's do it!
 This hands-on will go through the following:
 * Deploy for the first time with `XL-Deploy`
 * Create a simple release pipeline in `XL-Release`
 * How to use tags in `XL-Deploy`
 * .....
+
+Start up the VM in `VirtualBox` and all tools should be available in about two minutes.
 
 #### XL-Deploy: First Deployment
 We going to deploy for the first time. In the next few paragraphs we'll guide you through the following steps:
@@ -212,10 +204,9 @@ Adding a task for each release is doable, but usually a release pipeline has way
 1. Wait for the release to finish and go to [PetClinic](http://localhost:8080/petclinic/) to verify version 1.0 is running (refresh if necessary):  
 ![alt text](./Images/Tomcat_PetClinicV1.png)
 
-
 #### XL-Deploy: Tagging
 
-## 6. Start XL-Deploy and XL-Release for own evaluation
+## 5. Start XL-Deploy and XL-Release for own evaluation
 I got the Docker images from XebiaLabs themselves:
 * `XL-Deploy`: https://hub.docker.com/r/xebialabs/xl-deploy/
 * `XL-Release`: https://hub.docker.com/r/xebialabs/xl-release/

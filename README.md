@@ -247,8 +247,20 @@ Now we're going to start a release with the `dev` user and approve it with the `
 1. Once the release is done, check [PetClinic](http://localhost:8080/petclinic/) to verify version 2.0 is deployed:  
 ![alt text](./Images/Tomcat_PetClinicV2.png)
 
-
 #### XL-Deploy: Tagging
+With tagging you can make sure that applications can only be deployed on certain servers. In this scenario we going to define a second `Tomcat` server in the `Production` environment and assign the `PetClinic` tag to application and the first `Tomcat` server, so it will only be deployed there.
+
+1. Login to [XL-Deploy](http://localhost:4516)
+1. Follow the steps at **[Infrastructure](#infrastructure)**, but change the name of each `Tomcat` infrastructure entry. Like so:  
+![alt text](./Images/XLD_DefineInfrastructure2.png)
+1. Edit the `Production` environment and add  `Infrastructure/TomcatHost2/TomcatInstance2/TomcatApplication` to `Containers`
+1. Create (but don't start) a deployment to `Production` and `PetClinic` version 1.0. You'll see that `PetClinic` is added to both `TomcatPetClinic` and `TomcatPetApplication`. Open the preview to see what tasks are executed. Cancel the deployment.  
+![alt text](./Images/XLD_DeployNoTags.png)
+1. Now we're going to add the tag `PetClinic` to make sure its only deployed to `TomcatPetClinic`. Open `Infrastructure/TomcatHost/TomcatInstance/TomcatPetClinic` and enter `PetClinic` in the `Tags` field and click on `Add`, then `Save and close`.
+1. Open `Applications/PetClinic-war/1.0/petclinic` and add the tag `PetClinic` in the `Tags` field and click on `Add`, then `Save and close`.
+1. Open `Applications/PetClinic-war/2.0/petclinic` and add the tag `PetClinic` in the `Tags` field and click on `Add`, then `Save and close`.
+1. Start a deployment of `PetClinic` version 1.0 to `Production` and you'll see that only server `TomcatPetClinic` is selected as target.  
+![alt text](./Images/XLD_DeployTags.png)
 
 ## 5. Start XL-Deploy and XL-Release for own evaluation
 I got the Docker images from XebiaLabs themselves:

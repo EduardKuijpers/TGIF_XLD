@@ -43,7 +43,7 @@ This hands-on will go through the following:
 * How to use tags in `XL-Deploy`
 * .....
 
-Start up the VM in `VirtualBox` and all tools should be available in about two minutes.
+Start up the VM in `VirtualBox` and all tools should be available in about two to three minutes.
 
 #### XL-Deploy: First Deployment
 We going to deploy for the first time. In the next few paragraphs we'll guide you through the following steps:
@@ -203,6 +203,50 @@ Adding a task for each release is doable, but usually a release pipeline has way
 1. Now let's see if this works. Click on `New release`, give the release a name and enter `1.0` for the `PetClinicVersion`. Click on `Create`, then `Start release` > `Start`
 1. Wait for the release to finish and go to [PetClinic](http://localhost:8080/petclinic/) to verify version 1.0 is running (refresh if necessary):  
 ![alt text](./Images/Tomcat_PetClinicV1.png)
+
+##### Users and Assigned Tasks
+Like mentioned in the beginning, release pipelines consist of more tasks than just deploying. In many organisations there's an approval needed to be allowed to deploy to production. Here we're going to play a scenario with a `Developer` and a `Product Owner`. The `Developer` keeps an eye on the pipeline and the `Product Owner` is the only one who can give the approval.
+
+First we're going to create the user accounts for the both of them.
+1. Go to `User management` > `Users`
+1. Click on `New user` and fill in the following:
+    * Username: `dev`
+    * Set password: `dev`
+    * Confirm password: `dev`
+1. Click on `Save`
+1. Repeat steps two and three for the `Product Owner`
+    * Username: `po`
+    * Set password: `po`
+    * Confirm password: `po`
+
+Change the permissions of the `PetClinic Release Pipeline` template for the `Developer` and `Product Owner`
+1. Go to the `PetClinic Release Pipeline` template and select from the dropdown menu `Teams and permissions`. You'll see two parts: One where you can define teams and one where you can assign users or teams to the available permissions:  
+![alt text](./Images/XLR_TemplateTeams.png)
+1. We're going to create two teams. Click on `New team` and name it `Developers` and click on `Create`.
+1. Create another team called `Product Owner`
+1. Add the `dev` user to team `Developers` and user `po` to `Product Owner` by clicking in the `Users` column of the team and start typing the user you want to add. There's an auto-complete, so when the user appears, click on it:  
+![alt text](./Images/XLR_TemplateTeamsAddUsers.png)
+1. Now we're going to give the teams some permissions. Add the `Developers` team to permissions `Create release`, `Start release`, `View release`, and `View template`. Add `Product Owner` to `View release`,and `View template`.
+1. Be careful in this screen! Unlike in the `Release flow` screen changes aren't saved automatically: So click on `Save`!
+
+Let's add an approval to the template
+1. Select `Release flow` from the dropdown menu
+1. Click on `Add phase`, name it `Pre-deployment check` and move it to the left by dragging and dropping it. Rename the old phase `Production Deployment` and give the phase the color `Red`.
+1. Click on `Add task` within the `Pre-deployment check` phase, name it `Approval PO` and click on `Add` (the task type should already be set on `Manual`). 
+1. Open the `Approval PO` task. Edit the description to `Product Owner: Please give the approval for deployment of version ${PetClinicVersion} to production` and click `Save`. Assign team `Product Owner` to the task:  
+![alt text](./Images/XLR_TemplatesTaskAssign.png)
+1. Close the task and result should look like this:  
+![alt text](./Images/XLR_TemplateCheck.png)
+
+Now we're going to start a release with the `dev` user and approve it with the `po` user.
+1. Open a incognito window of your browser. Go to [XL-Release](http://localhost:5516) and login with the `dev` user.
+1. Create a release from the `PetClinic Release Pipeline` template called `Proper Release` with `PetClinicVersion` 2.0. Now start the release.
+1. Log out by clicking on the gears symbol on the top-right and clicking on `Log out`
+1. Log in with the `po` user and you should see the `Proper Release`, click on it.
+1. Click on the `Approval PO` task and click on `Complete`. Fill in the field and click on `OK`
+1. Once the release is done, check [PetClinic](http://localhost:8080/petclinic/) to verify version 2.0 is deployed:  
+![alt text](./Images/Tomcat_PetClinicV2.png)
+
 
 #### XL-Deploy: Tagging
 

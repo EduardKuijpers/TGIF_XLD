@@ -242,8 +242,11 @@ Now we're going to start a release with the `dev` user and approve it with the `
 1. Open a incognito window of your browser. Go to [XL-Release](http://localhost:5516) and login with the `dev` user.
 1. Create a release from the `PetClinic Release Pipeline` template called `Proper Release` with `PetClinicVersion` 2.0. Now start the release.
 1. Log out by clicking on the gears symbol on the top-right and clicking on `Log out`
-1. Log in with the `po` user and you should see the `Proper Release`, click on it.
-1. Click on the `Approval PO` task and click on `Complete`. Fill in the field and click on `OK`
+1. Log in with the `po` user and click on `My tasks`
+1. You should see the `Approval PO` assigned to the `Product Owner` for `Proper Release`:  
+![alt text](./Images/XLR_MyTasks.png)  
+If you login with another user, you won't see the `Approval PO` task in `My tasks`
+1. Open the `Approval PO` task and click on `Complete`, then fill in the field and click on `OK`
 1. Once the release is done, check [PetClinic](http://localhost:8080/petclinic/) to verify version 2.0 is deployed:  
 ![alt text](./Images/Tomcat_PetClinicV2.png)
 
